@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ajit Kushwaha — Backend and AI systems engineer</title>
+<meta name="description" content="Portfolio of Ajit Kushwaha, a software and backend engineer building distributed systems, microservices, and agentic AI.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #101216;
+    --surface: #161920;
+    --line: #262a33;
+    --text: #eceef2;
+    --muted: #979eac;
+    --accent: #8ea6ff;
+
+    --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --wrap: 1120px;
+    --gutter: clamp(20px, 5vw, 48px);
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html {
+    background: var(--bg);
+    height: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: rgba(142,166,255,.32); }
+
+  .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: rgba(16,18,22,.78);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 500; text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+  .nav { display: flex; gap: clamp(14px, 3vw, 28px); }
+  .nav a { color: var(--muted); text-decoration: none; font-size: .95rem; transition: color .2s; }
+  .nav a:hover { color: var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    --mx: 78%;
+    --my: 28%;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 14vw, 168px) 0 clamp(64px, 10vw, 120px);
+    background: radial-gradient(520px circle at var(--mx) var(--my), rgba(142,166,255,.08), transparent 70%);
+  }
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--dot, rgba(255,255,255,.16)) 1px, transparent 1.6px);
+    background-size: 28px 28px;
+  }
+  .hero::before {
+    --dot: rgba(255,255,255,.12);
+    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+    mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+  }
+  .hero::after {
+    --dot: rgba(142,166,255,.95);
+    -webkit-mask-image: radial-gradient(200px circle at var(--mx) var(--my), #000, transparent);
+    mask-image: radial-gradient(200px circle at var(--mx) var(--my), #000, transparent);
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+
+  h1 {
+    margin: 0;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 8.2vw, 6.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    max-width: 20ch;
+  }
+  .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  .line > span { display: block; animation: rise .9s cubic-bezier(.2,.7,.1,1) both; }
+  .line:nth-child(2) > span { animation-delay: .1s; }
+  .line:nth-child(3) > span { animation-delay: .2s; }
+  @keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+
+  .hero-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+    gap: 48px;
+    margin-top: clamp(40px, 6vw, 72px);
+    align-items: end;
+  }
+  .lede { margin: 0; max-width: 54ch; color: var(--muted); font-size: 1.125rem; }
+  .lede strong { color: var(--text); font-weight: 400; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    display: inline-flex; align-items: center;
+    padding: 11px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: .95rem; font-weight: 500;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .btn-primary:hover { background: #fff; }
+  .btn-ghost:hover { border-color: var(--muted); }
+
+  .status { font-size: .95rem; color: var(--muted); border-left: 1px solid var(--line); padding-left: 20px; }
+  .status b { display: block; color: var(--text); font-weight: 500; margin-bottom: 2px; }
+  .dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); margin-right: 10px; vertical-align: 1px;
+    box-shadow: 0 0 0 4px rgba(142,166,255,.16);
+  }
+
+  /* ---------- Sections ---------- */
+  .section { padding: clamp(64px, 9vw, 112px) 0; border-top: 1px solid var(--line); }
+  .split { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 80px); }
+  .section h2 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  @media (min-width: 821px) {
+    .section h2 { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 96px); align-self: start; }
+  }
+
+  /* About */
+  .about p { margin: 0 0 20px; max-width: 64ch; color: var(--muted); }
+  .about p:first-child { color: var(--text); font-size: 1.25rem; line-height: 1.55; letter-spacing: -0.01em; }
+  .about p:last-child { margin-bottom: 0; }
+
+  /* Dash lists */
+  .points { list-style: none; margin: 0; padding: 0; }
+  .points li { position: relative; padding-left: 22px; margin: 0 0 12px; color: var(--muted); max-width: 66ch; }
+  .points li::before { content: ""; position: absolute; left: 0; top: .85em; width: 10px; height: 1px; background: var(--muted); opacity: .7; }
+  .points li:last-child { margin-bottom: 0; }
+
+  /* Experience & education */
+  .roles { list-style: none; margin: 0; padding: 0; }
+  .role { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .role:first-child { padding-top: 0; }
+  .role h3 { margin: 0; font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.35; }
+  .role .org { display: block; color: var(--muted); font-weight: 400; font-size: 1.05rem; }
+  .role time { font-family: var(--mono); font-size: .85rem; color: var(--muted); padding-top: .35em; white-space: nowrap; }
+  .role .desc { grid-column: 1 / -1; margin: 8px 0 0; color: var(--muted); max-width: 64ch; }
+  .role .points { grid-column: 1 / -1; margin-top: 18px; }
+
+  /* Projects */
+  .projects { border-top: 1px solid var(--line); }
+  .project { border-bottom: 1px solid var(--line); }
+  .project summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 28px;
+    grid-template-areas: "title year icon" "tag tag tag";
+    align-items: baseline;
+    column-gap: 16px;
+    padding: 26px 0;
+  }
+  .project summary::-webkit-details-marker { display: none; }
+  .p-title { grid-area: title; font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; transition: color .2s; }
+  .p-tag { grid-area: tag; color: var(--muted); font-size: 1rem; margin-top: 6px; }
+  .p-year { grid-area: year; color: var(--muted); font-family: var(--mono); font-size: .85rem; white-space: nowrap; }
+  .p-icon { grid-area: icon; position: relative; width: 14px; height: 14px; justify-self: end; align-self: center; }
+  .p-icon::before, .p-icon::after {
+    content: ""; position: absolute; background: var(--muted); border-radius: 1px;
+    transition: transform .3s cubic-bezier(.2,.7,.1,1), background .2s;
+  }
+  .p-icon::before { left: 0; right: 0; top: 6px; height: 2px; }
+  .p-icon::after { top: 0; bottom: 0; left: 6px; width: 2px; }
+  .project[open] .p-icon::after { transform: scaleY(0); }
+  .project summary:hover .p-title { color: var(--accent); }
+  .project summary:hover .p-icon::before, .project summary:hover .p-icon::after { background: var(--accent); }
+  .p-body { padding: 0 0 34px; max-width: 66ch; animation: open .3s ease both; }
+  @keyframes open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  /* Project image slot */
+  .p-shot {
+    margin: 0 0 26px;
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .p-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .p-shot-empty {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    color: var(--muted); font-size: .9rem; text-align: center; padding: 16px;
+    background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.6px);
+    background-size: 24px 24px;
+  }
+  .p-shot-empty svg { width: 28px; height: 28px; stroke: currentColor; opacity: .8; }
+  .p-shot:has(img) .p-shot-empty { display: none; }
+
+  .p-body .points { margin-bottom: 22px; }
+  .p-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; color: var(--muted); font-size: .9rem; }
+  .p-meta .stack { font-family: var(--mono); font-size: .82rem; }
+  .p-meta a { color: var(--text); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: text-decoration-color .2s; }
+  .p-meta a:hover { text-decoration-color: var(--accent); }
+
+  /* Skills */
+  .skill-list { margin: 0; }
+  .skill-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .skill-row:first-child { padding-top: 0; }
+  .skill-row dt { color: var(--text); font-weight: 500; }
+  .skill-row dd { margin: 0; color: var(--muted); max-width: 64ch; }
+
+  /* Contact */
+  .contact-line { margin: 0 0 24px; color: var(--muted); font-size: 1.125rem; max-width: 46ch; }
+  .email {
+    display: inline-block;
+    font-size: clamp(1.35rem, 4.6vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+    transition: border-color .2s, color .2s;
+  }
+  .email:hover { border-color: var(--accent); color: #fff; }
+  .contact-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; }
+  .copy {
+    font: inherit; font-size: .95rem; color: var(--text); background: transparent;
+    border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; cursor: pointer;
+    transition: border-color .2s;
+  }
+  .copy:hover { border-color: var(--muted); }
+  .copy-note { font-size: .9rem; color: var(--accent); min-height: 1.4em; }
+  .reach { margin: 36px 0 0; display: grid; gap: 0; max-width: 460px; }
+  .reach div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .reach div:last-child { border-bottom: 1px solid var(--line); }
+  .reach dt { color: var(--muted); }
+  .reach dd { margin: 0; }
+  .reach a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: text-decoration-color .2s; }
+  .reach a:hover { text-decoration-color: var(--accent); }
+
+  .site-footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .9rem; }
+  .site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 820px) {
+    .hero-foot { grid-template-columns: 1fr; gap: 32px; }
+    .status { border-left: 0; border-top: 1px solid var(--line); padding: 20px 0 0; }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .skill-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+  @media (max-width: 560px) {
+    .role { grid-template-columns: 1fr; }
+    .role time { order: 2; padding-top: 0; }
+    .project summary {
+      grid-template-columns: minmax(0, 1fr) 28px;
+      grid-template-areas: "title icon" "year year" "tag tag";
+    }
+    .p-year { margin-top: 6px; }
+    .nav a[href="#skills"] { display: none; }
+    .reach div { grid-template-columns: 90px minmax(0, 1fr); }
+  }
+  @media (max-width: 400px) {
+    .nav a[href="#experience"] { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .line > span, .p-body { animation: none; }
+    .p-icon::before, .p-icon::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">Ajit Kushwaha</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <h1>
+        <span class="line"><span>I build scalable</span></span>
+        <span class="line"><span>backend systems and</span></span>
+        <span class="line"><span>agentic AI.</span></span>
+      </h1>
+
+      <div class="hero-foot">
+        <div>
+          <p class="lede">
+            I'm Ajit, a software engineer with an M.Tech from NIT Trichy. I design <strong>microservices, distributed systems, and multi-agent AI pipelines</strong> that hold up in production.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#projects">See my projects</a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="status">
+          <b><span class="dot" aria-hidden="true"></span>Open to work</b>
+          Backend, SDE, and AI/agentic systems engineer roles in product-focused teams.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="section" id="about">
+    <div class="wrap split">
+      <h2>About</h2>
+      <div class="about">
+        <p>Software and backend engineer with 1+ year of experience designing and building scalable, distributed backend systems and microservices.</p>
+        <p>I work across High-Level Design (HLD) and Low-Level Design (LLD), API design, database modeling, and design patterns. My hands-on stack includes Python, Django REST Framework, Node.js, and cloud-native deployment with Docker, Kubernetes, and AWS.</p>
+        <p>I also build agentic AI systems, including multi-agent orchestration, LLM integration, and Retrieval-Augmented Generation (RAG) pipelines. My production systems have improved processing throughput by 70% and reduced manual effort by 80% across enterprise clients.</p>
+        <p>I hold an M.Tech in Computer Science from NIT Trichy, and I'm looking for Backend Engineering, Software Development Engineer (SDE), or AI/Agentic Systems Engineer roles in product-focused teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section class="section" id="experience">
+    <div class="wrap split">
+      <h2>Experience</h2>
+      <ol class="roles">
+        <li class="role">
+          <h3>R&amp;D Engineer, Software Development <span class="org">Ninestars Information Technologies, Bangalore, India</span></h3>
+          <time>Jun 2025 – Aug 2026</time>
+          <ul class="points">
+            <li>Led a 4-member engineering team to design and deliver scalable backend systems using a microservices-based architecture for enterprise document processing platforms.</li>
+            <li>Collaborated within an Agile/Scrum framework, taking part in sprint planning, daily stand-ups, and sprint reviews to deliver features iteratively across enterprise clients.</li>
+            <li>Owned High-Level Design (HLD) for core platform services, defining service boundaries, data flow, and API contracts, and Low-Level Design (LLD) for individual modules, including class structures, database schemas, and design patterns.</li>
+            <li>Designed and developed Python and Django REST Framework microservices and REST APIs to orchestrate document ingestion, processing, validation, and result delivery, reducing manual effort by 80% across 5+ enterprise clients.</li>
+            <li>Built agentic, LLM-driven workflows to automate document validation and decision routing within the microservices pipeline, reducing manual review steps and improving processing accuracy.</li>
+            <li>Built loosely coupled, service-oriented pipelines with clear separation of concerns, enabling independent scaling of services and achieving a 70% improvement in processing throughput.</li>
+            <li>Designed relational database schemas and optimized queries and indexing strategies, improving read and write performance for high-volume workloads.</li>
+            <li>Implemented asynchronous and batch-processing workflows using message queues to handle high-volume loads with strong fault tolerance, reliability, and performance.</li>
+            <li>Applied caching strategies and pipeline refactoring to reduce processing latency and improve throughput under peak load.</li>
+            <li>Containerized backend services with Docker and deployed on Kubernetes and AWS EC2, collaborating with frontend and cloud teams on CI/CD pipelines to ensure stable, scalable, and timely production releases.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section class="section" id="projects">
+    <div class="wrap split">
+      <h2>Projects</h2>
+      <div class="projects">
+
+        <details class="project" open>
+          <summary>
+            <span class="p-title">Agentic RAG System</span>
+            <span class="p-year">Jan – May 2025</span>
+            <span class="p-icon" aria-hidden="true"></span>
+            <span class="p-tag">Multi-agent architecture with fact-checking and safety validation</span>
+          </summary>
+          <div class="p-body">
+            <figure class="p-shot">
+              <!-- Image slot: replace the placeholder div with <img src="..." alt="Agentic RAG System screenshot"> -->
+              <div class="p-shot-empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5.5-5.5a1.5 1.5 0 0 1 2.1 0L20 20"/></svg><span>Screenshot of Agentic RAG System goes here</span></div>
+            </figure>
+            <ul class="points">
+              <li>Designed and built a multi-agent Agentic AI system using LangGraph, with specialized agents for routing, retrieval, query reformulation, web search, answer generation, fact-checking, and safety validation.</li>
+              <li>Designed the system architecture (HLD) for agent orchestration and state management, and the LLD for individual agent interfaces and message contracts.</li>
+              <li>Built a hybrid semantic retrieval pipeline supporting PDF, DOCX, TXT, and URL-based knowledge sources using LangChain and ChromaDB, with self-correcting retrieval and web search fallback.</li>
+              <li>Integrated Groq LLM, Google Gemini, and Tavily Search API to generate context-aware responses with real-time information retrieval and factual verification.</li>
+            </ul>
+            <div class="p-meta">
+              <span class="stack">Python, LangChain, LangGraph, Agentic AI, RAG, ChromaDB, Streamlit</span>
+              <a href="https://github.com/Ajit8858/Agentic-RAG-System" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </details>
+
+        <details class="project">
+          <summary>
+            <span class="p-title">Distributed URL Shortener Service</span>
+            <span class="p-year">Jan – May 2025</span>
+            <span class="p-icon" aria-hidden="true"></span>
+            <span class="p-tag">Sharded, cached, and rate-limited link shortening</span>
+          </summary>
+          <div class="p-body">
+            <figure class="p-shot">
+              <!-- Image slot: replace the placeholder div with <img src="..." alt="Distributed URL Shortener Service screenshot"> -->
+              <div class="p-shot-empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5.5-5.5a1.5 1.5 0 0 1 2.1 0L20 20"/></svg><span>Screenshot of Distributed URL Shortener Service goes here</span></div>
+            </figure>
+            <ul class="points">
+              <li>Designed the HLD for a distributed URL-shortening service, covering load balancing, database sharding, caching layer, and horizontal scalability for high read and write throughput.</li>
+              <li>Authored the LLD for core components, including the URL encoding service, key-generation service, and analytics module, using clean object-oriented design and relevant design patterns (Singleton, Strategy, Factory).</li>
+              <li>Implemented a REST API layer with rate limiting and an LRU-based caching layer to reduce database load and improve response latency.</li>
+            </ul>
+            <div class="p-meta">
+              <span class="stack">Python, Django REST Framework, PostgreSQL, Redis, Docker, System Design</span>
+              <a href="https://github.com/Ajit8858" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </details>
+
+        <details class="project">
+          <summary>
+            <span class="p-title">Hyperlocal Price Comparison Web Application</span>
+            <span class="p-year">Aug – Dec 2025</span>
+            <span class="p-icon" aria-hidden="true"></span>
+            <span class="p-tag">Real-time prices from e-commerce platforms and nearby stores</span>
+          </summary>
+          <div class="p-body">
+            <figure class="p-shot">
+              <!-- Image slot: replace the placeholder div with <img src="..." alt="Hyperlocal Price Comparison Web Application screenshot"> -->
+              <div class="p-shot-empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5.5-5.5a1.5 1.5 0 0 1 2.1 0L20 20"/></svg><span>Screenshot of Hyperlocal Price Comparison Web Application goes here</span></div>
+            </figure>
+            <ul class="points">
+              <li>Built a full-stack application to aggregate real-time product prices from multiple e-commerce platforms and nearby retail stores within a city.</li>
+              <li>Designed the HLD covering service decomposition, data ingestion, and search and query flow, and the LLD for the product-normalization and inventory modules.</li>
+              <li>Implemented product normalization, location-based search, and inventory management, maintaining API response times below 200ms under peak load.</li>
+              <li>Designed a scalable backend using Node.js with caching and indexed query optimization, supporting 1,000+ concurrent users.</li>
+            </ul>
+            <div class="p-meta">
+              <span class="stack">Node.js, Django, SQL, Docker, REST APIs, System Design, Location Services</span>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section class="section" id="skills">
+    <div class="wrap split">
+      <h2>Core skills</h2>
+      <dl class="skill-list">
+        <div class="skill-row"><dt>Languages</dt><dd>Python, C++, C, Java</dd></div>
+        <div class="skill-row"><dt>System design</dt><dd>High-Level Design (HLD), Low-Level Design (LLD), Design Patterns (Creational, Structural, Behavioral), Object-Oriented Design (OOD), Distributed Systems, Scalability and Fault Tolerance, Caching Strategies, Load Balancing, Rate Limiting, Database Sharding</dd></div>
+        <div class="skill-row"><dt>Backend and DevOps</dt><dd>Python, Node.js, Django, Django REST Framework, Microservices Architecture, REST API Design, Asynchronous and Batch Processing, Message Queues (Kafka, RabbitMQ), Docker, Kubernetes, CI/CD, Git, GitHub, AWS (EC2, S3, Lambda, RDS), Agile/Scrum</dd></div>
+        <div class="skill-row"><dt>AI and agentic systems</dt><dd>Agentic AI, Multi-Agent Orchestration, LangChain, LangGraph, Retrieval-Augmented Generation (RAG), Vector Databases (ChromaDB, Pinecone, Qdrant), LLM Integration, Prompt Engineering</dd></div>
+        <div class="skill-row"><dt>Testing and quality</dt><dd>Automated Testing, pytest, Django TestCase, Unit Testing, Integration Testing, Test Coverage, Defect Reproduction and Root-Cause Analysis</dd></div>
+        <div class="skill-row"><dt>Databases</dt><dd>SQL, PostgreSQL, MySQL, Database Schema Design, Indexing and Query Optimization, NoSQL fundamentals</dd></div>
+        <div class="skill-row"><dt>Core CS</dt><dd>Data Structures and Algorithms, Operating Systems, DBMS, Computer Networks, System Design, Backend Development</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ===== Education ===== -->
+  <section class="section" id="education">
+    <div class="wrap split">
+      <h2>Education</h2>
+      <ol class="roles">
+        <li class="role">
+          <h3>M.Tech in Computer Science and Engineering <span class="org">National Institute of Technology, Tiruchirappalli (NIT Trichy)</span></h3>
+          <time>Aug 2023 – Jun 2025</time>
+          <p class="desc">CGPA: 7.45 / 10</p>
+        </li>
+        <li class="role">
+          <h3>B.Tech in Computer Science and Engineering <span class="org">Bundelkhand Institute of Engineering and Technology (BIET), Jhansi</span></h3>
+          <time>Aug 2017 – Jun 2021</time>
+          <p class="desc">73.33%</p>
+        </li>
+        <li class="role">
+          <h3>Adarsh Inter College <span class="org">Ghazipur, UP</span></h3>
+          <time>2014 – 2016</time>
+          <p class="desc">Class 12: 84.60% (2016). Class 10: 85.83% (2014).</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="section" id="contact">
+    <div class="wrap split">
+      <h2>Contact</h2>
+      <div>
+        <p class="contact-line">Hiring for a backend, SDE, or agentic AI role? Send me a note or give me a call.</p>
+        <a class="email" id="email" href="mailto:ajitkushwaha6164@gmail.com">ajitkushwaha6164@gmail.com</a>
+        <div class="contact-tools">
+          <button class="copy" id="copy" type="button">Copy email</button>
+          <span class="copy-note" id="copy-note" role="status" aria-live="polite"></span>
+        </div>
+        <dl class="reach">
+          <div><dt>Phone</dt><dd><a href="tel:+918858243945">+91 8858243945</a></dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/Ajit8858" target="_blank" rel="noopener">github.com/Ajit8858</a></dd></div>
+          <!-- Replace the # below with your LinkedIn profile URL -->
+          <div><dt>LinkedIn</dt><dd><a href="#" target="_blank" rel="noopener">Ajit Kushwaha</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Ajit Kushwaha</span>
+    <span>Designed and built by hand in plain HTML and CSS.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    // Cursor light on the hero grid (skipped for reduced motion)
+    var hero = document.getElementById('hero');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (hero && !reduce) {
+      var tx = 78, ty = 28, cx = tx, cy = ty, raf = null;
+      function tick() {
+        cx += (tx - cx) * 0.12;
+        cy += (ty - cy) * 0.12;
+        hero.style.setProperty('--mx', cx.toFixed(2) + '%');
+        hero.style.setProperty('--my', cy.toFixed(2) + '%');
+        if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) {
+          raf = requestAnimationFrame(tick);
+        } else { raf = null; }
+      }
+      hero.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        var r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width) * 100;
+        ty = ((e.clientY - r.top) / r.height) * 100;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+    }
+
+    // Copy email
+    var btn = document.getElementById('copy');
+    var note = document.getElementById('copy-note');
+    var email = document.getElementById('email');
+    if (btn && email && note) {
+      btn.addEventListener('click', function () {
+        var text = email.textContent.trim();
+        function done(msg) {
+          note.textContent = msg;
+          setTimeout(function () { note.textContent = ''; }, 2200);
+        }
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(
+              function () { done('Copied to clipboard'); },
+              function () { done('Copy failed. Select the address to copy it.'); }
+            );
+          } else { done('Copy failed. Select the address to copy it.'); }
+        } catch (err) { done('Copy failed. Select the address to copy it.'); }
+      });
+    }
+  })();
+</script>
+</body>
+</html>
