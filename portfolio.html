@@ -172,6 +172,22 @@
   .role .points { grid-column: 1 / -1; margin-top: 18px; }
 
   /* Projects */
+  .project-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 12px 0 20px;
+  }
+
+  .project-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+  }
   .projects { border-top: 1px solid var(--line); }
   .project { border-bottom: 1px solid var(--line); }
   .project summary {
@@ -380,10 +396,208 @@
   </section>
 
   <!-- ===== Projects ===== -->
+
   <section class="section" id="projects">
     <div class="wrap split">
       <h2>Projects</h2>
       <div class="projects">
+
+        <details class="project" open>
+          <summary>
+            <span class="p-title">Weather Relay</span>
+            <span class="p-year">2026</span>
+            <span class="p-icon" aria-hidden="true"></span>
+            <span class="p-tag">Cached weather API relay with tracing, rate limiting, and fault handling</span>
+          </summary>
+
+          <div class="p-body">
+            <figure class="p-shot">
+              <!-- Image slot: replace the placeholder div with
+                  <img src="..." alt="Weather Relay demo screenshot"> -->
+              <img
+                src="images/weather-relay-portfolio.svg"
+                alt="Weather Relay demo screenshot"
+              >
+              <div class="p-shot-empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2.5"/>
+                  <circle cx="9" cy="10" r="1.6"/>
+                  <path d="M4 18l5.5-5.5a1.5 1.5 0 0 1 2.1 0L20 20"/>
+                </svg>
+                <span>Screenshot of Weather Relay demo goes here</span>
+              </div>
+            </figure>
+            <div class="project-links">
+                <a href="https://github.com/Ajit8858/API-Integration"
+                  target="_blank"
+                  rel="noopener">
+                  GitHub
+                </a>
+
+                <a href="https://api-integration-jcbt.onrender.com/"
+                  target="_blank"
+                  rel="noopener">
+                  Live Demo
+                </a>
+            </div>
+        ```
+        <ul class="points">
+          <li>
+            Built a Node.js/Express backend that resolves a city into coordinates
+            and fetches weather data through two sequential third-party API calls,
+            exposing the result through a clean <code>GET /api/weather?city=...</code>
+            endpoint.
+          </li>
+
+          <li>
+            Implemented a 10-minute in-memory cache to eliminate repeated upstream
+            requests for frequently queried cities and reduce response latency.
+          </li>
+
+          <li>
+            Added input validation, per-IP rate limiting, upstream timeout handling,
+            and a consistent <code>{ error: { code, message } }</code> response
+            format across validation and third-party API failures.
+          </li>
+
+          <li>
+            Built a demo frontend that visualizes the backend request trace,
+            including which upstream APIs were called, individual request latency,
+            and whether the response was served from cache.
+          </li>
+
+          <li>
+            Added a 7-test automated test suite using a fake upstream server,
+            allowing API behavior and failure scenarios to be tested without
+            depending on the real weather service.
+          </li>
+        </ul>
+
+        <div class="p-meta">
+          <span class="stack">
+            Node.js, Express, JavaScript, HTML, CSS, REST API, Caching, Rate Limiting
+          </span>
+          <a href="https://github.com/Ajit8858/API-Integration"
+            target="_blank"
+            rel="noopener">
+            GitHub
+          </a>
+          <a href="https://api-integration-jcbt.onrender.com/"
+            target="_blank"
+            rel="noopener">
+            Live Demo
+          </a>
+        </div>
+        ```
+
+          </div>
+        </details>
+
+        <details class="project" open>
+        <summary>
+          <span class="p-title">Shop API</span>
+          <span class="p-year">2026</span>
+          <span class="p-icon" aria-hidden="true"></span>
+          <span class="p-tag">
+            Products and orders REST API with JWT authentication and role-based access
+          </span>
+        </summary>
+
+        <div class="p-body">
+
+          <!-- Project Image -->
+          <figure class="p-shot">
+            <img
+              src="images/shop_api_banner.png"
+              alt="Shop API project screenshot"
+            >
+          </figure>
+
+          <!-- Project Links -->
+          <div class="project-links">
+
+            <a
+              href="https://shoping-api-1.onrender.com/docs"
+              target="_blank"
+              rel="noopener"
+            >
+              Live Demo
+            </a>
+
+            <a
+              href="https://github.com/Ajit8858/Shoping-API"
+              target="_blank"
+              rel="noopener"
+            >
+              GitHub
+            </a>
+
+          </div>
+
+          <!-- Project Description -->
+          <ul class="points">
+
+            <li>
+              Built a FastAPI-based e-commerce backend covering the complete
+              product and order lifecycle, including product browsing,
+              order placement, cancellation, and fulfillment status updates.
+            </li>
+
+            <li>
+              Implemented JWT-based authentication with customer and admin
+              roles, using role-based access control to restrict catalogue
+              management and order operations.
+            </li>
+
+            <li>
+              Developed product search, price filtering, and pagination APIs
+              using SQLAlchemy 2 and Pydantic v2 for structured database
+              access and request/response validation.
+            </li>
+
+            <li>
+              Implemented atomic stock reservation during order creation to
+              prevent overselling when multiple users place orders
+              concurrently.
+            </li>
+
+            <li>
+              Designed immutable order history by storing product name and
+              price snapshots in order line items, ensuring historical orders
+              remain accurate even when catalogue data changes.
+            </li>
+
+            <li>
+              Added order status transition validation for the workflow
+              <code>pending → paid → shipped → delivered</code>, preventing
+              invalid fulfillment state changes.
+            </li>
+
+            <li>
+              Added 25 automated tests covering authentication, products,
+              orders, permissions, and business rules using pytest.
+            </li>
+
+            <li>
+              Exposed interactive Swagger UI and ReDoc documentation through
+              <code>/docs</code> and <code>/redoc</code>, allowing the complete
+              API to be tested without a separate frontend.
+            </li>
+
+          </ul>
+
+          <!-- Technology Stack -->
+          <div class="p-meta">
+            <span class="stack">
+              Python, FastAPI, SQLAlchemy 2, Pydantic v2, PyJWT,
+              bcrypt, pytest, SQLite/PostgreSQL, REST API
+            </span>
+          </div>
+
+        </div>
+      </details>
 
         <details class="project" open>
           <summary>
